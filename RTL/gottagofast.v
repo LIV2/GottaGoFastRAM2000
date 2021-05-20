@@ -1,6 +1,6 @@
 /*
 GottaGoFastRAMZ2 - Zorro 2 8MB Autoconfig FastRAM for Amiga 2000
-Copyright 2020 Matthew Harlum
+Copyright 2021 Matthew Harlum
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // Config defines
-//`define NoDTACK
 `define autoconfig  // If disabled RAM is always mapped to $200000-9FFFFF
 //`define Offer_6M  // If told to shutup when offering 8MB, offer up a 2MB and also 4MB block next (useful with an A590/2091)
 
@@ -253,13 +252,8 @@ assign OEn   = !(!RWn | ((autoconfig_cycle | ram_cycle) & !ASn & DOE & BERRn) & 
 // So hold off DTACK until DOE to ensure read/write meets timing.
 // 
 // OVRn/DTACKn go through an open-collector buffer so no need to tristate here.
-`ifndef NoDTACK
 assign OVRn   = !((autoconfig_cycle | ram_addrmatched) & !ASn);
 assign DTACKn = !((autoconfig_cycle | ram_addrmatched) & DOE & !ASn);
-`else
-assign OVRn   = 1;
-assign DTACKn = 1;
-`endif
 
 assign SLAVEn = !((autoconfig_cycle | ram_addrmatched) & !ASn);
 assign MEMWn  = refresh_cas | RWn; // Write should be high for CBR refresh 

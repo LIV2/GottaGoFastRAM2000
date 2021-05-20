@@ -6,20 +6,30 @@ This is an 8MB Autoconfig Fast RAM for the Amiga 2000
 
 ## Table of contents
 1. [Status](#status)
+1. [Features](#features)
 1. [PCB Ordering](#ordering-pcbs)
 4. [Jumpers](#jumpers)
 7. [Bill of materials](#bill-of-materials)
 
 ## Status
-This is tested and working for me
+
+This is tested and working
+
+## Features
+
+* 8MB of Fast RAM
+* Auto-sizing - The RAM board will coexist with other devices by autosizing to fit the remaining free Zorro II memory space
 
 ## PCB Ordering
+
 For best results the boards should be manufactured with the "Gold Fingers" option so that the edge connector will survive many insertion/removal cycles
 
 ## Jumpers
+
 4MB: Forces the board to appear as a 4MB board rather than 8MB
 
 ### Bill of materials
+
 |Component|Location|QTY|Link|
 |---------|--------|---|------|
 |LM1117-3.3 SOT-223|U1|1|[Mouser](https://www.mouser.com/ProductDetail/926-LM1117IMP3.3NOPB)|
