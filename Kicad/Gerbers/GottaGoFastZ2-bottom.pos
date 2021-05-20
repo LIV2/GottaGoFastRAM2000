@@ -1,0 +1,29 @@
+### Module positions - created on 02/28/21 17:43:12 ###
+### Printed by Pcbnew version kicad (5.1.9)-1
+## Unit = mm, Angle = deg.
+## Side : bottom
+# Ref     Val       Package                                           PosX       PosY       Rot  Side
+C3        0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   178.4350   -87.9500   90.0000  bottom
+C4        0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   106.8070   -57.4040    0.0000  bottom
+C5        0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   106.8070   -63.7540    0.0000  bottom
+C6        0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   183.2610   -96.1390    0.0000  bottom
+C7        0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   106.8070   -82.8040  180.0000  bottom
+C8        0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   124.5870   -57.4040    0.0000  bottom
+C9        0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   171.4246   -99.6188   90.0000  bottom
+C10       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   124.5870   -63.7540    0.0000  bottom
+C11       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   124.5870   -82.8040    0.0000  bottom
+C12       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   183.2610   -91.0590    0.0000  bottom
+C13       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   142.3670   -57.4040    0.0000  bottom
+C14       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   142.3670   -63.7540    0.0000  bottom
+C15       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   131.1910  -104.3940   90.0000  bottom
+C16       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   114.0460  -104.3940   90.0000  bottom
+C17       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   165.6080   -96.1390  180.0000  bottom
+C18       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   142.3670   -82.8040    0.0000  bottom
+C19       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   160.1470   -57.4040    0.0000  bottom
+C20       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   168.5290   -99.6188   90.0000  bottom
+C21       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   160.1470   -63.7540    0.0000  bottom
+C22       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   160.1470   -82.8040    0.0000  bottom
+C23       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   162.4198   -90.0430  180.0000  bottom
+C25       0.1u      C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   154.8765  -100.4570  270.0000  bottom
+R1        10K       R_0805_2012Metric_Pad1.20x1.40mm_HandSolder   181.7500   -87.3252    0.0000  bottom
+## End

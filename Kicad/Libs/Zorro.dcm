@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 74LVC2G17
+D Dual Buffer Schmitt Triggered, Low-Voltage CMOS
+K Dual Buffer Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+#End Doc Library

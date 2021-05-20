@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name Zorro)(type Legacy)(uri ${KIPRJMOD}/Libs/Zorro.lib)(options "")(descr ""))
+  (lib (name HYB5118160BSJ)(type Legacy)(uri ${KIPRJMOD}/Libs/HYB5118160BSJ.lib)(options "")(descr ""))
+)

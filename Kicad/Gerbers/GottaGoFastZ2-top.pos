@@ -1,0 +1,18 @@
+### Module positions - created on 02/28/21 17:43:12 ###
+### Printed by Pcbnew version kicad (5.1.9)-1
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val             Package                                           PosX       PosY       Rot  Side
+C2        10u             C_1206_3216Metric_Pad1.33x1.80mm_HandSolder   196.8500   -95.5425  270.0000  top
+C24       0.1u            C_0805_2012Metric_Pad1.18x1.45mm_HandSolder   186.4360  -103.2510  270.0000  top
+U1        XC9572XL-TQ100  TQFP-100_14x14mm_P0.5mm                       174.4980   -96.1390  270.0000  top
+U2        74LS245         SOIC-20W_7.5x12.8mm_P1.27mm                   108.3310  -100.3300  270.0000  top
+U3        74LS245         SOIC-20W_7.5x12.8mm_P1.27mm                   125.4760  -100.3300  270.0000  top
+U4        LM1117-3.3      SOT-223-3_TabPin2                             201.9300   -97.1169   90.0000  top
+U5        HYB5118160BSJ   SOJ-42-LongPads                               112.1410   -70.1040  270.0000  top
+U6        HYB5118160BSJ   SOJ-42-LongPads                               129.9210   -70.1040  270.0000  top
+U7        HYB5118160BSJ   SOJ-42-LongPads                               147.7010   -70.1040  270.0000  top
+U8        HYB5118160BSJ   SOJ-42-LongPads                               165.4810   -70.1040  270.0000  top
+U9        74F86           SOIC-14_3.9x8.7mm_P1.27mm                     192.2780  -102.4890   90.0000  top
+U10       74LVC2G17       SOT-23-6_Handsoldering                        150.8781  -101.3439   45.0000  top
+## End
