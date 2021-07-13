@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 `define autoconfig  // If disabled RAM is always mapped to $200000-9FFFFF
 //`define Offer_6M  // If told to shutup when offering 8MB, offer up a 2MB and also 4MB block next (useful with an A590/2091)
 
-module gottagofast(
+module gottagofast2000(
     input C1n,
     input C3n,
     input CDAC,
