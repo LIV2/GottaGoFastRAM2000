@@ -18,9 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // Config defines
+`ifndef makefile_defines
 `define autoconfig  // If disabled RAM is always mapped to $200000-9FFFFF
 //`define Offer_6M  // If told to shutup when offering 8MB, offer up a 2MB and also 4MB block next (useful with an A590/2091)
-
+`endif
 module gottagofast2000(
     input C1n,
     input C3n,
@@ -109,12 +110,15 @@ begin
     shutup <= 1'b0;
     addr_match <= 8'b00000000;
 
+`ifdef Offer_6M
+  autoconfig_state <= Offer_2M;
+`else
     if (!J4MB) begin
       autoconfig_state <= Offer_4M;
     end else begin
       autoconfig_state <= Offer_8M;
     end
-
+`endif
   end else if (autoconfig_cycle & RWn) begin
     case (ADDR[8:1])
       8'h00:   data_out <= 4'b1110;        // Type: Zorro II, link to free pool

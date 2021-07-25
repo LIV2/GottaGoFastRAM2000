@@ -2,6 +2,8 @@ PROJECT=gottagofast2000
 PART=XC9572XL-10-TQ100
 WORKDIR=tmp
 
+DEFINES=autoconfig
+
 CABLE=usb21
 
 CPLDFITFLAGS=-loc on -slew fast -init low -terminate keeper -nogclkopt -nogtsopt -nogsropt -power std -ignoretspec -optimize speed -keepio -inputs 54 -pterms 25
@@ -15,7 +17,7 @@ $(PROJECT).prj:
 
 $(WORKDIR)/$(PROJECT).ngc:	$(PROJECT).v $(PROJECT).prj
 	@mkdir $(WORKDIR) || true
-	@sed -r "s#^(-top).*#\1 $(PROJECT)#g;s#^(-ofn).*#\1 ..\/$@#g;s#^(-ifn).*#\1 ../$(PROJECT).prj#g;s#^(-define).*#\1 {$(REV_A_DEFINES)}#g" template.xst > $@.xst
+	@sed -r "s#^(-top).*#\1 $(PROJECT)#g;s#^(-ofn).*#\1 ..\/$@#g;s#^(-ifn).*#\1 ../$(PROJECT).prj#g;s#^(-define).*#\1 {makefile_defines $(DEFINES)}#g" template.xst > $@.xst
 	cd $(WORKDIR) && xst -ifn ../$@.xst -ofn $(PROJECT)-xst.log
 
 $(WORKDIR)/%.ngd:	$(WORKDIR)/%.ngc $(PROJECT).ucf
@@ -41,5 +43,5 @@ flash:	$(PROJECT).jed
 	"erase -p 1\n"\
 	"program -p 1\n"\
 	"verify -p 1\n"\
-	"exit" > batch
-	LD_PRELOAD=/opt/Xilinx/usb-driver/libusb-driver.so impact -batch batch
+	"exit" > tmp/batch
+	LD_PRELOAD=/opt/Xilinx/usb-driver/libusb-driver.so impact -batch tmp/batch
