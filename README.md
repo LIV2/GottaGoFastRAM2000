@@ -2,14 +2,16 @@
 
 This is an 8MB Autoconfig Fast RAM for the Amiga 2000 
 
+Special thanks to [GadgetUK164](https://www.youtube.com/user/GadgetUK164) and sparxUK for their help testing this.
+
 ![PCB](Docs/PCB.PNG?raw=True)
 
 ## Table of contents
 1. [Status](#status)
 1. [Features](#features)
 1. [PCB Ordering](#ordering-pcbs)
-4. [Jumpers](#jumpers)
-7. [Bill of materials](#bill-of-materials)
+1. [Jumpers](#jumpers)
+1. [Bill of materials](#bill-of-materials)
 
 ## Status
 
