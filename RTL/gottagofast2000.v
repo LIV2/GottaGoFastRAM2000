@@ -48,12 +48,13 @@ module gottagofast2000(
     output OEn,
     output SLAVEn,
     output MEMWn,
-    output DTACKn,
+    output reg DTACKn,
     output OVRn
     );
 
+
 wire CLK;
-assign CLK = !(C1n ^ C3n);
+assign CLK = !(C1n ^ C3n); // Generate 7MHz clock from C1n XOR C3n
 
 wire autoconfig_cycle;
 `ifndef autoconfig
@@ -93,11 +94,11 @@ assign autoconfig_cycle = (ADDR[23:16] == 8'hE8) & !CFGINnr & !shutup;
 always @(posedge ASn or negedge RESETn)
 begin
   if (!RESETn) begin
-   CFGOUTn <= 1'b1;
-	 CFGINnr <= 1'b1;
+    CFGOUTn <= 1'b1;
+    CFGINnr <= 1'b1;
   end else begin
-   CFGOUTn <= !shutup;
-	 CFGINnr <= CFGINn;
+    CFGOUTn <= !shutup;
+    CFGINnr <= CFGINn;
   end
 end
 
@@ -122,7 +123,7 @@ begin
   end else if (autoconfig_cycle & RWn) begin
     case (ADDR[8:1])
       8'h00:   data_out <= 4'b1110;        // Type: Zorro II, link to free pool
-      8'h01: 
+      8'h01:
         case (autoconfig_state)
           Offer_8M: data_out <= 4'b0000;
           Offer_4M: data_out <= 4'b0111;
@@ -159,7 +160,7 @@ begin
     end
     else if (ADDR[8:1] == 8'h24) begin
       // Configure the memory block assigned to us by the Amiga
-      // 
+      //
       // addr_match is an array of 1MB blocks.
       // This is so the card can make multiple offers to Autoconfig & accept multiple address allocations at the same time
       // i.e to facilitate a 6MB config by appearing as a 2MB card and a 4MB card.
@@ -251,16 +252,44 @@ assign LCASn = !(access_lcas | refresh_cas);
 // Buffer enables early on writes to ensure timing is met otherwise not until DOE is asserted.
 assign OEn   = !(!RWn | ((autoconfig_cycle | ram_cycle) & !ASn & DOE & BERRn) & RESETn);
 
-// For some reason, DOE sometimes doesn't get asserted by Buster until S6
-// This doesn't always give enough time for propogation through all of the buffers
-// So hold off DTACK until DOE to ensure read/write meets timing.
-// 
+// DOE doesn't get asserted by Buster until the access cycle is in the correct phase with C1/Custom chips
+// So we need to hold off DTACK until that is the case by using ASq instead of ASn for DTACK generation
+//
+// ASNq valid from middle of S3 which means no waitstates.
+// Using DOE instead of ASNq would cause a waitstate as DOE is not active until S4 rise
+reg C2;
+reg ASq;
+
+// Generate C2 Clock
+always @(negedge CDAC) begin
+  C2 <= !C1n;
+end
+
+// Qualify ASn with C2
+always @(posedge C2 or posedge ASn) begin
+  if (ASn)
+    ASq <= 1;
+  else
+    ASq <= ASn;
+end
+
+assign dtack_enable = (ram_addrmatched & !ASq);
+
 // OVRn/DTACKn go through an open-collector buffer so no need to tristate here.
-assign OVRn   = !((autoconfig_cycle | ram_addrmatched) & !ASn);
-assign DTACKn = !((autoconfig_cycle | ram_addrmatched) & DOE & !ASn);
+always @(posedge CLK or posedge ASn)
+begin
+  if (ASn) begin
+    DTACKn <= 1;
+  end else begin
+    if (dtack_enable)
+      DTACKn <= 0;
+  end
+end
+
+assign OVRn   = !(ram_addrmatched & !ASn);
 
 assign SLAVEn = !((autoconfig_cycle | ram_addrmatched) & !ASn);
-assign MEMWn  = refresh_cas | RWn; // Write should be high for CBR refresh 
+assign MEMWn  = refresh_cas | RWn; // Write should be high for CBR refresh
 
 // CAS before RAS refresh
 // CAS Asserted in S1 & S2
