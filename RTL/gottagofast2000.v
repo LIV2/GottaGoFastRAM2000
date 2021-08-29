@@ -273,7 +273,7 @@ always @(posedge C2 or posedge ASn) begin
     ASq <= ASn;
 end
 
-assign dtack_enable = (ram_addrmatched & !ASq);
+assign dtack_enable = ((!refresh_cas & !refresh_ras) & ram_addrmatched & !ASq);
 
 // OVRn/DTACKn go through an open-collector buffer so no need to tristate here.
 always @(posedge CLK or posedge ASn)
