@@ -88,7 +88,7 @@ localparam   Offer_8M = 3'b000,
 
 assign DBUS[15:12] = (autoconfig_cycle & RWn & !ASn & !UDSn) ? data_out[3:0] : 4'bZ;
 
-assign autoconfig_cycle = (ADDR[23:16] == 8'hE8) & !CFGINnr & !shutup;
+assign autoconfig_cycle = (ADDR[23:16] == 8'hE8) & !CFGINnr & CFGOUTn;
 
 // Register Config in/out at end of bus cycle
 always @(posedge ASn or negedge RESETn)

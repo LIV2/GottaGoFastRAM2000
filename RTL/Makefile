@@ -6,7 +6,7 @@ DEFINES=autoconfig
 
 CABLE=usb21
 
-CPLDFITFLAGS=-loc on -slew fast -init low -terminate keeper -nogclkopt -nogtsopt -nogsropt -power std -ignoretspec -optimize speed -keepio -inputs 54 -pterms 25
+CPLDFITFLAGS=-loc on -slew slow -init low -terminate keeper -nogclkopt -nogtsopt -nogsropt -power std -ignoretspec -optimize speed -keepio -inputs 54 -pterms 25
 
 .PHONY:	all clean
 
