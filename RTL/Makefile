@@ -5,6 +5,9 @@ BINDIR=../Binary
 
 DEFINES=autoconfig
 
+SERIAL=$(shell git rev-parse --short=8 HEAD)
+PRODID=69
+
 CABLE=usb21
 
 CPLDFITFLAGS=-loc on -slew slow -init low -terminate keeper -nogclkopt -nogtsopt -nogsropt -power std -ignoretspec -optimize speed -keepio -inputs 54 -pterms 25
@@ -18,7 +21,7 @@ $(PROJECT).prj:
 
 $(WORKDIR)/$(PROJECT).ngc:	$(PROJECT).v $(PROJECT).prj
 	@mkdir $(WORKDIR) || true
-	@sed -r "s#^(-top).*#\1 $(PROJECT)#g;s#^(-ofn).*#\1 ..\/$@#g;s#^(-ifn).*#\1 ../$(PROJECT).prj#g;s#^(-define).*#\1 {makefile_defines $(DEFINES)}#g" template.xst > $@.xst
+	@sed -r "s#^(-top).*#\1 $(PROJECT)#g;s#^(-ofn).*#\1 ..\/$@#g;s#^(-ifn).*#\1 ../$(PROJECT).prj#g;s#^(-define).*#\1 {makefile_defines $(DEFINES) SERIAL=32'h${SERIAL} PRODID=${PRODID}}#g" template.xst > $@.xst
 	cd $(WORKDIR) && xst -ifn ../$@.xst -ofn $(PROJECT)-xst.log
 
 $(WORKDIR)/%.ngd:	$(WORKDIR)/%.ngc $(PROJECT).ucf
