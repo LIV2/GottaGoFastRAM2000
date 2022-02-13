@@ -60,6 +60,8 @@ wire CLK;
 assign CLK = !(C1n ^ C3n); // Generate 7MHz clock from C1n XOR C3n
 
 wire autoconfig_cycle;
+wire [1:0] ram_select;
+
 `ifndef autoconfig
 assign autoconfig_cycle = 0;
 `else
@@ -90,7 +92,7 @@ localparam   Offer_8M = 3'b000,
 
 assign DBUS[15:12] = (autoconfig_cycle & RWn & !ASn & !UDSn) ? data_out[3:0] : 4'bZ;
 
-assign autoconfig_cycle = (ADDR[23:16] == 8'hE8) & !CFGINnr & CFGOUTn;
+assign autoconfig_cycle = (ADDR[23:16] == 8'hE8) & !CFGINn & CFGOUTn;
 
 // Register Config in/out at end of bus cycle
 always @(posedge ASn or negedge RESETn)
@@ -232,8 +234,11 @@ reg refresh_ras;
 reg refresh_cas;
 wire ram_addrmatched;
 
+assign ranger_match = ((ADDR[23:20] >= 4'hC && ADDR[23:16] <= 8'hD7) & !J4MB);
+assign other_match  = ((ADDR[23:20] >= 4'hA && ADDR[23:16] <= 8'hBE) & !J4MB);
+
 `ifdef autoconfig
-assign ram_addrmatched = (
+assign ram_addrmatched = ((
       ((ADDR[23:20] == 4'h2) & addr_match[0]) |
       ((ADDR[23:20] == 4'h3) & addr_match[1]) |
       ((ADDR[23:20] == 4'h4) & addr_match[2]) |
@@ -242,15 +247,23 @@ assign ram_addrmatched = (
       ((ADDR[23:20] == 4'h7) & addr_match[5]) |
       ((ADDR[23:20] == 4'h8) & addr_match[6]) |
       ((ADDR[23:20] == 4'h9) & addr_match[7])
-      ) & configured;
+      ) & configured) | 
+      ranger_match |
+      other_match;
+
 `else
 assign ram_addrmatched = ((ADDR[23:20] >= 4'h2) & (ADDR[23:20] <= 4'h9));
 `endif
 
-assign RAS1n = !((ADDR[22:21] == 2'b01 & access_ras) | (refresh_ras & refresh_cas)); // $200000-3FFFFF
-assign RAS2n = !((ADDR[22:21] == 2'b10 & access_ras) | (refresh_ras & refresh_cas)); // $400000-5FFFFF
-assign RAS3n = !((ADDR[22:21] == 2'b11 & access_ras) | (refresh_ras & refresh_cas)); // $600000-7FFFFF
-assign RAS4n = !((ADDR[22:21] == 2'b00 & access_ras) | (refresh_ras & refresh_cas)); // $800000-9FFFFF
+assign ram_select = {
+  (J4MB == 1'b1) ? ADDR[22] : (ranger_match | other_match),
+  ADDR[21]
+};
+
+assign RAS1n = !((ram_select == 2'b01 & access_ras) | (refresh_ras & refresh_cas)); // $200000-3FFFFF
+assign RAS2n = !((ram_select == 2'b10 & access_ras) | (refresh_ras & refresh_cas)); // $400000-5FFFFF
+assign RAS3n = !((ram_select == 2'b11 & access_ras) | (refresh_ras & refresh_cas)); // $600000-7FFFFF
+assign RAS4n = !((ram_select == 2'b00 & access_ras) | (refresh_ras & refresh_cas)); // $800000-9FFFFF
 
 assign UCASn = !(access_ucas | refresh_cas);
 assign LCASn = !(access_lcas | refresh_cas);
