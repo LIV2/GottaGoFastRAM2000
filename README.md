@@ -61,3 +61,7 @@ For best results the boards should be manufactured with the "Gold Fingers" optio
 
 * **Symptom**: My bridgeboard doesn't work when this card is installed  
   **Solution**: The bridgeboard needs 512K of the 8MB expansion space for its own use, you will need to move the ram board to the leftmost slot and I recommend flashing the [6MB Firmware](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/gottagofast2000-6MB.jed) to maximise the amount of memory offered when used with the bridgeboard
+
+* **Symptom**: My system is unstable / graphical corruption when using this board but it passes a memory test in ATK/DiagROM etc  
+  **Solution**: Check that your Amiga 2000 has the correct buffers installed in U600-605. U600,601,603,604 __must__ be 74LS245 and U602/605 should be 74ALS245 but might be 74LS245 in some A2000 revisions.  
+  If you have used anything else (like 74HCT245) for these you will run into issues with this board and many others.
