@@ -24,6 +24,11 @@ $(WORKDIR)/$(PROJECT).ngc:	$(PROJECT).v $(PROJECT).prj
 	@sed -r "s#^(-top).*#\1 $(PROJECT)#g;s#^(-ofn).*#\1 ..\/$@#g;s#^(-ifn).*#\1 ../$(PROJECT).prj#g;s#^(-define).*#\1 {makefile_defines $(DEFINES) SERIAL=32'h${SERIAL} PRODID=${PRODID}}#g" template.xst > $@.xst
 	cd $(WORKDIR) && xst -ifn ../$@.xst -ofn $(PROJECT)-xst.log
 
+$(WORKDIR)/$(PROJECT)-6MB.ngc:	$(PROJECT).v $(PROJECT).prj
+	@mkdir $(WORKDIR) || true
+	@sed -r "s#^(-top).*#\1 $(PROJECT)#g;s#^(-ofn).*#\1 ..\/$@#g;s#^(-ifn).*#\1 ../$(PROJECT).prj#g;s#^(-define).*#\1 {makefile_defines $(DEFINES) SERIAL=32'h${SERIAL} PRODID=${PRODID} Offer_6M}#g" template.xst > $@.xst
+	cd $(WORKDIR) && xst -ifn ../$@.xst -ofn $(PROJECT)-xst.log
+
 $(WORKDIR)/%.ngd:	$(WORKDIR)/%.ngc $(PROJECT).ucf
 	cd $(WORKDIR) && ngdbuild -p $(PART) -uc ../$(PROJECT).ucf ../$< ../$@
 
@@ -52,6 +57,17 @@ cleanjeds:
 	- @rm -fv $(BINDIR)/*.jed
 
 flash:	$(PROJECT).jed
+	@echo "setMode -bs\n"\
+	"setCable -p $(CABLE)\n"\
+	"identify\n"\
+	"assignfile -p 1 -file $<\n"\
+	"erase -p 1\n"\
+	"program -p 1\n"\
+	"verify -p 1\n"\
+	"exit" > tmp/batch
+	LD_PRELOAD=/opt/Xilinx/usb-driver/libusb-driver.so impact -batch tmp/batch
+
+flash-6MB:	$(PROJECT)-6MB.jed
 	@echo "setMode -bs\n"\
 	"setCable -p $(CABLE)\n"\
 	"identify\n"\
