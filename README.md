@@ -9,6 +9,7 @@ Special thanks to [GadgetUK164](https://www.youtube.com/user/GadgetUK164) and sp
 ## Table of contents
 1. [Status](#status)
 1. [Features](#features)
+1. [Firmware](#firmware)
 1. [PCB Ordering](#ordering-pcbs)
 1. [Jumpers](#jumpers)
 1. [Bill of materials](#bill-of-materials)
@@ -22,6 +23,12 @@ This is tested and working
 
 * 8MB of Fast RAM
 * Auto-sizing - The RAM board will coexist with other devices by autosizing to fit the remaining free Zorro II memory space
+
+## Firmware
+
+There are two different firmwares available for this card.
+1. [Standard autosizing](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/gottagofast2000.jed) - This Firmware will autosize trying in this order: 8MB -> 4MB -> 2MB -> 1MB until it can fit in the remaining space
+2. [6MB autosizing](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/gottagofast2000-6MB.jed) - This will try to offer 8MB then 6MB (in a block of 2MB + 4MB) to maximize space i.e when using a bridgeboard that needs 512K itself
 
 ## PCB Ordering
 
@@ -49,5 +56,8 @@ For best results the boards should be manufactured with the "Gold Fingers" optio
 \* U2 buffers the cards generated DTACK and OVR signals - In a pinch this can be left out but you will run into problems with the A2091 and some other devices so it is best to fit this and save yourself the headache
 
 ## Troubleshooting
-* Symptom: System does not boot, the power LED does not change brightness  
-  Solution: Possible incorrect orientation/faulty ic in U2 - check orientation and/or remove this IC and try again
+* **Symptom**: System does not boot, the power LED does not change brightness  
+  **Solution**: Possible incorrect orientation/faulty ic in U2 - check orientation and/or remove this IC and try again
+
+* **Symptom**: My bridgeboard doesn't work when this card is installed  
+  **Solution**: The bridgeboard needs 512K of the 8MB expansion space for its own use, you will need to move the ram board to the leftmost slot and I recommend flashing the [6MB Firmware](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/gottagofast2000-6MB.jed) to maximise the amount of memory offered when used with the bridgeboard
