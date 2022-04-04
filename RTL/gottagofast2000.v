@@ -259,14 +259,11 @@ assign LCASn = !(access_lcas | refresh_cas);
 assign OEn   = !(!RWn | ((autoconfig_cycle | ram_cycle) & !ASn & DOE & BERRn) & RESETn);
 
 // DOE doesn't get asserted by Buster until the access cycle is in the correct phase with C1/Custom chips
-// For some reason this seems to sometimes assert late into S6 which doesn't give enough time to 
-// propogate from the RAM through the buffers
-// So we need hold off DTACK using ASq (internally generated DOE) instead of ASn.
+// Gary's DTACK generation for Z2 RAM space doesn't enforce this phase relationship though!
+// This can result in DOE not being asserted until S6 which doesn't always give enough time for data to propogate through all the buffers.
+// We will enforce the correct phase ourselves by holding off DTACK until we're in the correct phase
 //
 // This is known to solve issues GadgetUK164 was experiencing with this card, and the odd crash I experienced.
-//
-// ASNq valid from middle of S3 which means no waitstates.
-// Using DOE instead of ASNq would cause a waitstate as DOE is not active until S4 rise
 reg C2;
 reg ASq;
 
