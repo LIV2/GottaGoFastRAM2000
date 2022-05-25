@@ -72,3 +72,16 @@ For best results the boards should be manufactured with the "Gold Fingers" optio
   If using one of these newer kickstart versions with a Bridgeboard I'd recommend flashing the [6MB Firmware](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/gottagofast2000-6MB.jed)  
   Another option would be to write the firmware to offer multiple 2MB blocks until it is shut up which unfortunately doesn't work, because Kickstart 1.3-3.1 will throw a yellow screen if the last board in the chain was shut up, and newer versions will throw the gray screen telling us the board has been shut-up.
   
+* **Problem**: With the board installed I get a red screen saying that this board is defective  
+  **Solution**: This usually means that one of the RAM chips are faulty or there could be bad soldering.  
+  Remove all other Zorro cards, boot up [ATK](https://github.com/keirf/amiga-stuff/releases) or Diagrom and do a manual memory test with the individual ranges listed in the memory map below.  
+  Consult the memory map below to figure out which RAM chip is being reported faulty.
+  If the same bits are reported as faulty across multiple of the address ranges check for bad soldering around the RAM chips and the buffers at U3&U4.  
+
+### Memory Map
+|Address range|Chip|
+|-------------|----|
+|200000-3FFFFF|U6|
+|400000-5FFFFF|U7|
+|600000-7FFFFF|U8|
+|800000-9FFFFF|U9|
