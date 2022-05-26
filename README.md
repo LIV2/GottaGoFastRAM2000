@@ -27,8 +27,8 @@ This is tested and working
 ## Firmware
 
 There are two different firmwares available for this card.
-1. [Standard autosizing](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/gottagofast2000.jed) - This Firmware will autosize trying in this order: 8MB -> 4MB -> 2MB -> 1MB until it can fit in the remaining space
-2. [6MB autosizing](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/gottagofast2000-6MB.jed) - This will try to offer 8MB then 6MB (in a block of 2MB + 4MB) to maximize space i.e when using a bridgeboard that needs 512K itself
+1. [Standard autosizing](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/XC9572XL/gottagofast2000.jed) - This Firmware will autosize trying in this order: 8MB -> 4MB -> 2MB -> 1MB until it can fit in the remaining space
+2. [6MB autosizing](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/XC9572XL/gottagofast2000-6MB.jed) - This will try to offer 8MB then 6MB (in a block of 2MB + 4MB) to maximize space i.e when using a bridgeboard that needs 512K itself
 
 ## PCB Ordering
 
@@ -60,7 +60,7 @@ For best results the boards should be manufactured with the "Gold Fingers" optio
   **Solution**: Possible incorrect orientation/faulty ic in U2 - check orientation and/or remove this IC and try again
 
 * **Problem**: My bridgeboard doesn't work when this card is installed  
-  **Solution**: The bridgeboard needs 512K of the 8MB expansion space for its own use, you will need to move the ram board to the leftmost slot and I recommend flashing the [6MB Firmware](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/gottagofast2000-6MB.jed) to maximise the amount of memory offered when used with the bridgeboard
+  **Solution**: The bridgeboard needs 512K of the 8MB expansion space for its own use, you will need to move the ram board to the leftmost slot and I recommend flashing the [6MB Firmware](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/XC9572XL/gottagofast2000-6MB.jed) to maximise the amount of memory offered when used with the bridgeboard
 
 * **Problem**: My system is unstable / graphical corruption when using this board but it passes a memory test in ATK/DiagROM etc  
   **Solution**: Check that your Amiga 2000 has the correct buffers installed in U600-605. U600,601,603,604 __must__ be 74LS245 and U602/605 should be 74ALS245 but might be 74LS245 in some A2000 revisions.  
@@ -69,7 +69,7 @@ For best results the boards should be manufactured with the "Gold Fingers" optio
 * **Problem**: When used with a bridgeboard/other cards I get a gray screen telling me the card has been "SHUT"  
   **Solution**: Some other board is using some of the 8MB space, so the card will be told to shutup and will reappear offering 4MB then 2, 1 etc.  
   On Kick 1.3-3.1 the system will not alert you to this happening and will continue to boot (this is used to do the autosizing) but newer versions "helpfully" tell you about this condition.  
-  If using one of these newer kickstart versions with a Bridgeboard I'd recommend flashing the [6MB Firmware](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/gottagofast2000-6MB.jed)  
+  If using one of these newer kickstart versions with a Bridgeboard I'd recommend flashing the [6MB Firmware](https://github.com/LIV2/GottaGoFastRAM2000/raw/master/Binary/XC9572XL/gottagofast2000-6MB.jed)  
   Another option would be to write the firmware to offer multiple 2MB blocks until it is shut up which unfortunately doesn't work, because Kickstart 1.3-3.1 will throw a yellow screen if the last board in the chain was shut up, and newer versions will throw the gray screen telling us the board has been shut-up.
   
 * **Problem**: With the board installed I get a red screen saying that this board is defective  
