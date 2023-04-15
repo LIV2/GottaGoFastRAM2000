@@ -9,7 +9,6 @@ BINDIR=../Binary
 DEFINES=autoconfig
 
 SERIAL=$(shell git rev-parse --short=8 HEAD)
-PRODID=69
 
 CABLE=usb21
 
@@ -28,13 +27,13 @@ $(PROJECT).prj:
 $(WORKDIR)/$(PROJECT).ngc:	$(PROJECT).v $(PROJECT).prj
 	-@mkdir -p $(WORKDIR)/$(PART)
 	-@mkdir -p $(WORKDIR)/$(PART2)
-	@sed -r "s#^(-top).*#\1 $(PROJECT)#g;s#^(-ofn).*#\1 ..\/$@#g;s#^(-ifn).*#\1 ../$(PROJECT).prj#g;s#^(-define).*#\1 {makefile_defines $(DEFINES) SERIAL=32'h${SERIAL} PRODID=${PRODID}}#g" template.xst > $@.xst
+	@sed -r "s#^(-top).*#\1 $(PROJECT)#g;s#^(-ofn).*#\1 ..\/$@#g;s#^(-ifn).*#\1 ../$(PROJECT).prj#g;s#^(-define).*#\1 {makefile_defines $(DEFINES) SERIAL=32'h${SERIAL} #g" template.xst > $@.xst
 	cd $(WORKDIR) && xst -ifn ../$@.xst -ofn $(PROJECT)-xst.log
 
 $(WORKDIR)/$(PROJECT)-6MB.ngc:	$(PROJECT).v $(PROJECT).prj
 	-@mkdir -p $(WORKDIR)/$(PART)
 	-@mkdir -p $(WORKDIR)/$(PART2)
-	@sed -r "s#^(-top).*#\1 $(PROJECT)#g;s#^(-ofn).*#\1 ..\/$@#g;s#^(-ifn).*#\1 ../$(PROJECT).prj#g;s#^(-define).*#\1 {makefile_defines $(DEFINES) SERIAL=32'h${SERIAL} PRODID=${PRODID} Offer_6M}#g" template.xst > $@.xst
+	@sed -r "s#^(-top).*#\1 $(PROJECT)#g;s#^(-ofn).*#\1 ..\/$@#g;s#^(-ifn).*#\1 ../$(PROJECT).prj#g;s#^(-define).*#\1 {makefile_defines $(DEFINES) SERIAL=32'h${SERIAL} Offer_6M}#g" template.xst > $@.xst
 	cd $(WORKDIR) && xst -ifn ../$@.xst -ofn $(PROJECT)-xst.log
 
 $(WORKDIR)/$(PART)/%.ngd:	$(WORKDIR)/%.ngc $(PROJECT).ucf

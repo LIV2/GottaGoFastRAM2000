@@ -20,11 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Config defines
 `ifndef makefile_defines
 `define SERIAL 32'd421
-`define PRODID 8'02
-
 `define autoconfig  // If disabled RAM is always mapped to $200000-9FFFFF
 //`define Offer_6M  // If told to shutup when offering 8MB, offer up a 2MB and also 4MB block next (useful with an A590/2091)
 `endif
+
 module gottagofast2000(
     input C1n,
     input C3n,
@@ -64,8 +63,8 @@ wire autoconfig_cycle;
 assign autoconfig_cycle = 0;
 `else
 // Autoconfig
-localparam [15:0] mfg_id  = 16'h07DB;
-localparam [7:0]  prod_id = `PRODID;
+localparam [15:0] mfg_id  = 16'd5194;
+localparam [7:0]  prod_id = 8'd2;
 localparam [31:0] serial = `SERIAL;
 
 reg [7:0] addr_match;
