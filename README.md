@@ -1,4 +1,4 @@
-# GottaGoFastRAM200 8MB Autoconfig Fast RAM
+# GottaGoFastRAM2000 8MB Autoconfig Fast RAM
 
 This is an 8MB Autoconfig Fast RAM for the Amiga 2000 
 
